@@ -1,0 +1,10 @@
+{
+  "eval_id": 6,
+  "eval_name": "srs_missing_with_tasks",
+  "prompt": "在 specs/changes/AR005-api-change/ 下发现 tasks.md 存在但 srs.md 缺失，应该路由到哪个阶段 skill？",
+  "expected_output": "调用 sdd-task-requirements skill，补充完成 srs.md",
+  "assertions": [
+    "识别出 tasks.md 存在但 srs.md 缺失",
+    "路由到 sdd-router:sdd-task-requirements"
+  ]
+}

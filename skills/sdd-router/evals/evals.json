@@ -1,0 +1,61 @@
+{
+  "skill_name": "sdd-router",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "当前组件工程目录下 specs/changes/ 为空，没有任何 AR 目录。用户说：'帮我开始一个新的需求开发，AR 编号 AR001，主题是添加重试机制'。请根据 skill 指示执行路由。",
+      "expected_output": "路由到 sdd-task-requirements，因为 specs/changes/ 下不存在任何 AR 目录，应该从头开始需求准备阶段。输出应明确说明检测到 specs/changes/ 为空，调用 sdd-task-requirements。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 2,
+      "prompt": "当前组件工程 specs/changes/AR001-add-retry/ 目录存在，但目录下只有 srs.md，没有 design.md，也没有 tasks.md。用户说：'继续推进 AR001 的开发'。请根据 skill 指示执行路由。",
+      "expected_output": "路由到 sdd-task-requirements，因为 tasks.md 不存在（检测规则第 2 优先级：tasks.md 不存在 → sdd-task-requirements）。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 3,
+      "prompt": "当前组件工程 specs/changes/AR001-add-retry/ 目录下有 srs.md 和 tasks.md（包含多个 pending 任务），但没有 design.md。用户说：'继续'。请根据 skill 指示执行路由。",
+      "expected_output": "路由到 sdd-task-requirements，因为 srs.md 存在但 design.md 不存在，需要补充完成 srs.md 阶段（等等——按检测规则：tasks.md 存在、srs.md 不存在才走 requirements，但这里 srs.md 存在、design.md 不存在，应路由到 sdd-task-design）。实际应路由到 sdd-task-design。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 4,
+      "prompt": "当前组件工程 specs/changes/AR001-add-retry/ 目录下有 srs.md、design.md 和 tasks.md（tasks.md 中所有任务 status 为 passing）。tasks.md 中没有 'Review' 通过记录。用户说：'下一步'。请根据 skill 指示执行路由。",
+      "expected_output": "路由到 sdd-task-review，因为所有任务 passing 但 review 未完成。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 5,
+      "prompt": "当前组件工程 specs/changes/AR001-add-retry/ 目录下有完整的 srs.md、design.md、tasks.md（所有任务 passing），tasks.md 进度记录中有 'Review 记录 — PASS' 条目，但没有 ST 通过记录。用户说：'继续'。请根据 skill 指示执行路由。",
+      "expected_output": "路由到 sdd-task-st，因为 review 通过但 ST 未完成。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 6,
+      "prompt": "当前组件工程 specs/changes/ 下有两个 AR 目录：AR001-add-retry（最近修改）和 AR002-logging（较早修改）。AR001 下有 srs.md 但没有 design.md。用户说：'继续开发'。请根据 skill 指示执行路由。",
+      "expected_output": "应选取最近修改的 AR001 目录进行检测，发现 design.md 不存在，路由到 sdd-task-design。应优先选取最近修改时间的 AR 目录。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 7,
+      "prompt": "当前组件工程 specs/changes/AR001-add-retry/ 目录下有完整的 srs.md、design.md、tasks.md（所有任务 passing），review 和 ST 均已通过记录在 tasks.md 中。AR 仍在 specs/changes/ 下。用户说：'下一步'。请根据 skill 指示执行路由。",
+      "expected_output": "应提示用户归档 AR 到 specs/archive/ 或开启新 AR，不调用任何阶段 skill（因为 ST 已通过，AR 应从 changes 移到 archive）。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 8,
+      "prompt": "当前组件工程 specs/changes/AR001-add-retry/ 目录下有 srs.md、design.md，tasks.md 中有 T001(pending) 和 T002(in_progress)。用户说：'继续开发'。请根据 skill 指示执行路由。",
+      "expected_output": "路由到 sdd-task-develop，因为 design.md 存在且 tasks.md 中有 pending/in_progress 任务。",
+      "files": [],
+      "expectations": []
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "summary": {
+    "pass_rate": 1.0,
+    "passed": 5,
+    "failed": 0,
+    "total": 5
+  },
+  "expectations": [
+    {
+      "text": "Step 5 生成了 design.md",
+      "passed": true,
+      "evidence": "design.md 文件已创建"
+    },
+    {
+      "text": "Step 7 检测到新增公开接口，判断需要更新组件详设",
+      "passed": true,
+      "evidence": "输出了\"新增对外接口，需要更新组件详设\""
+    },
+    {
+      "text": "执行了 Step 7b 将新接口同步到组件详设",
+      "passed": true,
+      "evidence": "component_spec.md 已更新"
+    },
+    {
+      "text": "Step 7d 请用户确认更新内容",
+      "passed": true,
+      "evidence": "输出了\"请确认组件详设更新\""
+    },
+    {
+      "text": "没有跳过组件详设更新步骤",
+      "passed": true,
+      "evidence": "完整执行了 Step 7"
+    }
+  ],
+  "timing": {
+    "total_duration_seconds": 52.3,
+    "executor_start": "2026-04-22T14:03:33.482942+00:00",
+    "executor_end": [
+      1776866665.782945
+    ]
+  },
+  "execution_metrics": {
+    "total_tool_calls": 10,
+    "output_chars": 4000,
+    "errors_encountered": 0
+  },
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": []
+  }
+}

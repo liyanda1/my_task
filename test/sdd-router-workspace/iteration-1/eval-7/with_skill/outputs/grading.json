@@ -1,0 +1,26 @@
+{
+  "expectations": [
+    {
+      "text": "检测到当前 AR 所在阶段",
+      "passed": true,
+      "evidence": "AR005-api-change 处于需求澄清阶段"
+    },
+    {
+      "text": "给出清晰的状态说明",
+      "passed": true,
+      "evidence": "说明需要补充 srs.md"
+    },
+    {
+      "text": "提示下一步应该做什么",
+      "passed": true,
+      "evidence": "提示调用 sdd-task-requirements"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "claims": []
+}

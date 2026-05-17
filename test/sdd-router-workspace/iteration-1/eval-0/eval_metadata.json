@@ -1,0 +1,10 @@
+{
+  "eval_id": 0,
+  "eval_name": "empty_project_routing",
+  "prompt": "项目目录为空，没有任何 SDD 相关文件，应该路由到哪个阶段 skill？",
+  "expected_output": "调用 sdd-task-requirements skill，开始需求澄清流程",
+  "assertions": [
+    "识别出没有 specs/changes/ARxxx-* 目录",
+    "路由到 sdd-router:sdd-task-requirements"
+  ]
+}

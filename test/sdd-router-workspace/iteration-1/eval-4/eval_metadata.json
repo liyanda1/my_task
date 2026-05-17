@@ -1,0 +1,11 @@
+{
+  "eval_id": 4,
+  "eval_name": "st_routing",
+  "prompt": "在 specs/changes/AR004-optimization/ 下 Review 部分标记为 PASS，但 ST 测试未执行，应该路由到哪个阶段 skill？",
+  "expected_output": "调用 sdd-task-st skill，执行 ST 验收测试",
+  "assertions": [
+    "识别出 Review 已通过",
+    "识别出 ST 未完成",
+    "路由到 sdd-router:sdd-task-st"
+  ]
+}

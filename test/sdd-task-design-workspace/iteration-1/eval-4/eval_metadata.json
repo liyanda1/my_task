@@ -1,0 +1,27 @@
+{
+  "eval_id": 4,
+  "eval_name": "update-tasks-md-when-inconsistent",
+  "prompt": "specs/changes/AR001-add-retry/ has srs.md and tasks.md. After design is complete, task descriptions in tasks.md are inconsistent with the implementation solution in design.md (e.g., tasks.md says 'modify send() function' but design.md decided to add retry_send() function). Please follow skill instructions.",
+  "assertions": [
+    {
+      "id": "assert-1",
+      "text": "Step 6 detected inconsistency when updating tasks.md",
+      "type": "behavioral"
+    },
+    {
+      "id": "assert-2",
+      "text": "Updated task descriptions to align with design.md implementation solution",
+      "type": "behavioral"
+    },
+    {
+      "id": "assert-3",
+      "text": "Adjusted task descriptions and dependency relationships to match design decisions",
+      "type": "behavioral"
+    },
+    {
+      "id": "assert-4",
+      "text": "Did not retain task descriptions that conflict with the design",
+      "type": "negative"
+    }
+  ]
+}

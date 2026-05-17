@@ -1,0 +1,8 @@
+{
+  "eval_id": 5,
+  "eval_name": "new_ar_without_folder",
+  "prompt": "用户说 '我要开始一个新组件的开发'，项目目录下已有 include/src/tests/ 目录结构，但没有 specs/changes/，应该路由到哪个阶段 skill？",
+  "expected_output": "调用 sdd-task-requirements skill，开始需求澄清流程",
+  "actual_output": "路由到 sdd-task-requirements，因为没有 AR 目录",
+  "routing_result": "sdd-router:sdd-task-requirements"
+}

@@ -1,0 +1,47 @@
+{
+  "skill_name": "sdd-task-review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "specs/changes/AR001-add-retry/ 下所有任务均为 passing，没有 Review 记录。srs.md、design.md、tasks.md 齐全。AGENTS.md 中没有 'Review Models' 章节。opencode.json 也不存在。请按 skill 指示执行合规性检查。",
+      "expected_output": "Step 1 收集路径参数（不读取文件内容）。Step 1.5 未找到模型配置，应使用默认值（当前主模型 + gpt-4o），输出警告'建议补充第 2 个模型'但继续执行。Step 2 构建审查提示。Step 3 派发至少 2 个独立子 Agent 并行审查（S/D/C 三维共 12 个审查项）。Step 4 汇总结果。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 2,
+      "prompt": "AGENTS.md 中定义了 Review Models 章节，配置了 3 个模型：primary(claude-sonnet-4-20250514)、secondary(gpt-4o)、tertiary(deepseek-v3)。所有任务 passing。请按 skill 指示执行审查。",
+      "expected_output": "Step 1.5 应从 AGENTS.md 读取到 3 个模型配置。Step 3 应为 3 个模型分别派发独立子 Agent 并行执行。Step 4 汇总时对每个审查项比较 3 个模型的结论，任一模型判 NO 即该项为 FAIL。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 3,
+      "prompt": "多模型审查完成后，汇总结果中 S4（边界条件覆盖）被 secondary 模型判为 NO（理由：design.md 边界条件矩阵第 3 行'超时值为 0'没有对应测试），但 primary 模型判为 YES。其他所有审查项均为 YES。请按 skill 指示处理。",
+      "expected_output": "Step 4 汇总时，S4 应为 NO + 分歧标注（标注 secondary 判 NO，primary 判 YES）。因存在 NO 项，整体判定为 FAIL。Step 5 应进入修复循环：针对 S4 补写测试覆盖超时值为 0 的边界条件，然后重新派发所有模型重审（全维度，不仅 S4）。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 4,
+      "prompt": "审查第 1 轮 FAIL，修复后第 2 轮 FAIL（发现新的 D2 问题），修复后第 3 轮仍然 FAIL（C3 代码风格问题）。请按 skill 指示处理。",
+      "expected_output": "已达到 3 轮修复上限。应通过 AskUserQuestion 向用户上报，列出失败的审查项、已尝试的修复，请用户决定：强制通过 / 修改设计 / 调整需求。不应继续第 4 轮。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 5,
+      "prompt": "多模型审查所有审查项汇总均为 YES，整体 PASS。请按 skill 指示执行后续流程。",
+      "expected_output": "Step 6 在 tasks.md 的进度记录中追加审查记录（包含审查结果、参与模型、各模型结论、S/D/C 维度状态）。Step 7 调用 sdd-router:sdd-task-st 移交 ST 阶段。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 6,
+      "prompt": "多模型审查发现一个 Minor 问题（C3 代码风格：变量命名不完全符合 AGENTS.md 规范），其他所有项 YES。请按 skill 指示处理。",
+      "expected_output": "Step 4c 应判定整体为 FAIL（因为存在 NO 项）。Step 5 修复循环应处理该 Minor 问题。但也可以通过 AskUserQuestion 与用户确认是否立即修复或记录为待办（Minor 的可选处理方式）。修复后重审。",
+      "files": [],
+      "expectations": []
+    }
+  ]
+}

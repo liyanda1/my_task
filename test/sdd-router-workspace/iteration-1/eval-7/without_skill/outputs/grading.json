@@ -1,0 +1,26 @@
+{
+  "expectations": [
+    {
+      "text": "检测到当前 AR 所在阶段",
+      "passed": false,
+      "evidence": "未执行检测"
+    },
+    {
+      "text": "给出清晰的状态说明",
+      "passed": false,
+      "evidence": "未输出"
+    },
+    {
+      "text": "提示下一步应该做什么",
+      "passed": false,
+      "evidence": "未输出"
+    }
+  ],
+  "summary": {
+    "passed": 0,
+    "failed": 3,
+    "total": 3,
+    "pass_rate": 0
+  },
+  "claims": []
+}

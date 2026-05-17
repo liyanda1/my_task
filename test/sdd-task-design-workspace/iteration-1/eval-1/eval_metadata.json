@@ -1,0 +1,32 @@
+{
+  "eval_id": 1,
+  "eval_name": "simple-ar-without-multiple-proposals",
+  "prompt": "specs/changes/AR001-add-retry/ has srs.md and tasks.md. srs.md only describes 1 feature (adding a simple configuration item). User says: 'This requirement is simple, no need for multiple solution comparisons, just design directly.' Please follow the skill instructions.",
+  "assertions": [
+    {
+      "id": "assert-1",
+      "text": "For simple AR (1-3 features), merged into a single solution description",
+      "type": "behavioral"
+    },
+    {
+      "id": "assert-2",
+      "text": "Presented all design content at once (simple AR handling from extension guide)",
+      "type": "behavioral"
+    },
+    {
+      "id": "assert-3",
+      "text": "Waited for user approval before writing design.md",
+      "type": "behavioral"
+    },
+    {
+      "id": "assert-4",
+      "text": "Completed Step 7 to check if component detailed design needs updating",
+      "type": "behavioral"
+    },
+    {
+      "id": "assert-5",
+      "text": "Did not completely skip Step 3",
+      "type": "negative"
+    }
+  ]
+}

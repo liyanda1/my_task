@@ -1,0 +1,61 @@
+{
+  "skill_name": "sdd-task-develop",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "specs/changes/AR001-add-retry/ 目录下有 design.md（包含接口设计、算法流程、边界条件矩阵、测试设计）和 tasks.md（T001 pending: 实现重试配置结构体，T002 pending: 实现 retry_send() 函数，T003 pending: 添加重试逻辑集成测试，T001 无依赖，T002 依赖 T001，T003 依赖 T002）。用户说：'开始开发。'。请按 skill 指示执行。",
+      "expected_output": "Step 1 选取 T001（唯一无依赖的 pending 任务）。Step 2 确认开发环境。Step 3a 先写 T001 对应的测试（Red），Step 3b 写实现让测试通过（Green），Step 3c 重构。Step 4 检查覆盖率。Step 5 更新 tasks.md 将 T001 标记为 passing。Step 6 输出完成摘要，明确说明下一步是 T002。一个会话只完成 T001。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 2,
+      "prompt": "specs/changes/AR001-add-retry/ 下 tasks.md 中 T001 已 passing，T002 pending（依赖 T001）。design.md 和 srs.md 齐全。请按 skill 指示执行开发。",
+      "expected_output": "应选取 T002（前置依赖 T001 已 passing）。应读取 design.md 中与 T002 对应的设计节。应执行完整的 TDD 循环。不应选取 T003（依赖 T002 未完成）。完成后 T002 标记为 passing，输出下一步为 T003。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 3,
+      "prompt": "specs/changes/AR001-add-retry/ 下 tasks.md 中所有任务均为 passing。design.md 和 srs.md 齐全。用户说：'继续开发。'。请按 skill 指示执行。",
+      "expected_output": "Step 1a 读取 tasks.md 后应发现没有 pending 任务。应输出'所有 AR 任务已完成 — 下一步进入合规性检查（sdd-task-review）'，不选取任何任务执行开发。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 4,
+      "prompt": "specs/changes/AR001-add-retry/ 下 tasks.md 中 T001(pending) 和 T002(pending)，但 T002 依赖 T001，T001 依赖 T002（循环依赖）。用户说：'开始开发。'。请按 skill 指示执行。",
+      "expected_output": "Step 1a 应检测到循环依赖——T001 依赖 T002，T002 依赖 T001，没有满足依赖的可执行任务。应报告循环依赖并请用户决定如何处理。不应任意选择一个任务执行。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 5,
+      "prompt": "执行 TDD 的 Step 3a Red 阶段，测试编译通过但运行失败（测试目标函数不存在）。然后 Step 3b 写实现代码后，测试仍然失败（第 2 次）。再修改后测试还是失败（第 3 次）。请按 skill 指示处理。",
+      "expected_output": "3 次尝试仍失败后，按调试规范：收集完整错误信息，复现问题，对照 design.md 检查接口合约。如果判断是 design.md 有歧义，应通过 AskUserQuestion 向用户上报，停止自行猜测。不应在第 4 次继续尝试。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 6,
+      "prompt": "specs/changes/AR001-add-retry/ 下 T001 已 passing。T002 pending。design.md 中 T002 对应的接口设计有歧义（如函数签名描述不完整，参数类型未指定）。请按 skill 指示执行。",
+      "expected_output": "Step 1b 读取 design.md 时应发现歧义。Step 2 开始前应通过 AskUserQuestion 向用户澄清歧义（如'函数 send_with_retry 的 timeout 参数类型是 int 还是 std::chrono::milliseconds？'）。不应自行猜测参数类型并开始写代码。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 7,
+      "prompt": "T001 的开发已完成，测试全部 Green。Step 4 质量门禁检查时，语句覆盖率 75%（目标 >= 80%），分支覆盖率 60%（目标 >= 70%）。请按 skill 指示处理。",
+      "expected_output": "应识别未覆盖的行/分支，检查是否是 design.md 边界条件矩阵（§5）中没有写对应测试，如果是则补写测试用例。不应通过注释掉代码或降低标准来通过覆盖率检查。不应将任务标记为 passing。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 8,
+      "prompt": "用户说：'T001 和 T002 都很简单，一个会话一起做完吧。'。tasks.md 中 T001(pending) 无依赖，T002(pending) 依赖 T001。请按 skill 指示执行。",
+      "expected_output": "应拒绝同时完成两个任务。一个会话只完成一个任务。应完成 T001 后结束会话，输出完成摘要，说明下一个会话处理 T002。不应在同一个会话中完成 T001 和 T002。",
+      "files": [],
+      "expectations": []
+    }
+  ]
+}

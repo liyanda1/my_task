@@ -1,0 +1,52 @@
+{
+  "summary": {
+    "pass_rate": 1.0,
+    "passed": 5,
+    "failed": 0,
+    "total": 5
+  },
+  "expectations": [
+    {
+      "text": "执行了 Step 1：读取了组件详设、srs.md 和相关代码",
+      "passed": true,
+      "evidence": "在输出中看到读取了 component_spec.md 和 srs.md"
+    },
+    {
+      "text": "执行了 Step 2：分析了设计输入（功能点、性能约束、接口约束、架构约束）",
+      "passed": true,
+      "evidence": "输出了设计驱动因素表格"
+    },
+    {
+      "text": "执行了 Step 3：提出了至少 2 种设计方案并进行了推荐",
+      "passed": true,
+      "evidence": "输出了方案 A 和方案 B，并推荐了方案 A"
+    },
+    {
+      "text": "等待用户确认方案后才继续",
+      "passed": true,
+      "evidence": "输出了\"等待用户确认\"提示"
+    },
+    {
+      "text": "没有跳过方案比较直接写 design.md",
+      "passed": true,
+      "evidence": "在方案比较后才继续设计"
+    }
+  ],
+  "timing": {
+    "total_duration_seconds": 45.2,
+    "executor_start": "2026-04-22T14:03:33.481580+00:00",
+    "executor_end": [
+      1776866658.681592
+    ]
+  },
+  "execution_metrics": {
+    "total_tool_calls": 10,
+    "output_chars": 4000,
+    "errors_encountered": 0
+  },
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": []
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "expectations": [
+    {
+      "text": "识别出 srs.md 存在但 design.md 缺失",
+      "passed": true,
+      "evidence": "AR002-feature 目录有 srs.md 和 tasks.md，无 design.md"
+    },
+    {
+      "text": "路由到 sdd-router:sdd-task-design",
+      "passed": true,
+      "evidence": "根据规则：srs.md 存在，design.md 缺失时调用 sdd-task-design"
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 0,
+    "total": 2,
+    "pass_rate": 1.0
+  },
+  "claims": []
+}

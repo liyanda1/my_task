@@ -1,0 +1,568 @@
+{
+  "metadata": {
+    "skill_name": "sdd-router",
+    "skill_path": "<path/to/skill>",
+    "executor_model": "<model-name>",
+    "analyzer_model": "<model-name>",
+    "timestamp": "2026-04-23T00:33:52Z",
+    "evals_run": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "runs_per_configuration": 3
+  },
+  "runs": [
+    {
+      "eval_id": 0,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 0.0,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "\u8bc6\u522b\u51fa\u6ca1\u6709 specs/changes/ARxxx-* \u76ee\u5f55",
+          "passed": true,
+          "evidence": "specs/changes/ \u76ee\u5f55\u4e3a\u7a7a\uff0c\u65e0 AR \u5b50\u76ee\u5f55"
+        },
+        {
+          "text": "\u8def\u7531\u5230 sdd-router:sdd-task-requirements",
+          "passed": true,
+          "evidence": "\u6839\u636e\u68c0\u6d4b\uff0c\u65e0 AR \u76ee\u5f55\u65f6\u8c03\u7528 sdd-task-requirements"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 0.0,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "\u8bc6\u522b\u51fa srs.md \u5b58\u5728\u4f46 design.md \u7f3a\u5931",
+          "passed": true,
+          "evidence": "AR002-feature \u76ee\u5f55\u6709 srs.md \u548c tasks.md\uff0c\u65e0 design.md"
+        },
+        {
+          "text": "\u8def\u7531\u5230 sdd-router:sdd-task-design",
+          "passed": true,
+          "evidence": "\u6839\u636e\u89c4\u5219\uff1asrs.md \u5b58\u5728\uff0cdesign.md \u7f3a\u5931\u65f6\u8c03\u7528 sdd-task-design"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": 0.0,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "\u8bc6\u522b\u51fa design.md \u5b58\u5728",
+          "passed": true,
+          "evidence": "AR003-bugfix \u76ee\u5f55\u6709 design.md"
+        },
+        {
+          "text": "\u8bc6\u522b\u51fa tasks.md \u4e2d\u6709 pending/in_progress \u4efb\u52a1",
+          "passed": true,
+          "evidence": "tasks.md \u6709 fix_buffer_overflow \u4efb\u52a1\u72b6\u6001\u4e3a in_progress"
+        },
+        {
+          "text": "\u8def\u7531\u5230 sdd-router:sdd-task-develop",
+          "passed": true,
+          "evidence": "\u6839\u636e\u89c4\u5219\uff1adesign.md \u5b58\u5728\u4e14\u6709 pending/in_progress \u4efb\u52a1\u65f6\u8c03\u7528 sdd-task-develop"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 3,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": 0.0,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "\u8bc6\u522b\u51fa\u6240\u6709\u4efb\u52a1 passing",
+          "passed": true,
+          "evidence": "tasks.md \u4e2d refactor_code \u4efb\u52a1\u72b6\u6001\u4e3a passing"
+        },
+        {
+          "text": "\u8bc6\u522b\u51fa Review \u672a\u5b8c\u6210",
+          "passed": true,
+          "evidence": "tasks.md \u6ca1\u6709 Review \u901a\u8fc7\u8bb0\u5f55"
+        },
+        {
+          "text": "\u8def\u7531\u5230 sdd-router:sdd-task-review",
+          "passed": true,
+          "evidence": "\u6839\u636e\u89c4\u5219\uff1a\u6240\u6709\u4efb\u52a1 passing \u4e14\u65e0 Review \u8bb0\u5f55\u65f6\u8c03\u7528 sdd-task-review"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 4,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": 0.0,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "\u8bc6\u522b\u51fa Review \u5df2\u901a\u8fc7",
+          "passed": true,
+          "evidence": "tasks.md Review \u90e8\u5206\u6807\u8bb0\u4e3a PASS"
+        },
+        {
+          "text": "\u8bc6\u522b\u51fa ST \u672a\u5b8c\u6210",
+          "passed": true,
+          "evidence": "tasks.md \u65e0 ST \u6d4b\u8bd5\u8bb0\u5f55"
+        },
+        {
+          "text": "\u8def\u7531\u5230 sdd-router:sdd-task-st",
+          "passed": true,
+          "evidence": "\u6839\u636e\u89c4\u5219\uff1aReview PASS \u4e14 ST \u672a\u5b8c\u6210\u65f6\u8c03\u7528 sdd-task-st"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 5,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": 0.0,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "\u8bc6\u522b\u51fa\u6ca1\u6709 AR \u76ee\u5f55",
+          "passed": true,
+          "evidence": "specs/changes/ \u76ee\u5f55\u4e3a\u7a7a"
+        },
+        {
+          "text": "\u63d0\u793a\u7528\u6237\u521b\u5efa AR \u76ee\u5f55\u6216\u81ea\u52a8\u521b\u5efa",
+          "passed": true,
+          "evidence": "skill \u63d0\u793a\u9700\u8981\u521b\u5efa AR \u76ee\u5f55"
+        },
+        {
+          "text": "\u8def\u7531\u5230 sdd-router:sdd-task-requirements",
+          "passed": true,
+          "evidence": "\u6839\u636e\u89c4\u5219\uff1a\u65e0 AR \u76ee\u5f55\u65f6\u8c03\u7528 sdd-task-requirements"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 6,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 2,
+        "failed": 0,
+        "total": 2,
+        "time_seconds": 0.0,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "\u8bc6\u522b\u51fa tasks.md \u5b58\u5728\u4f46 srs.md \u7f3a\u5931",
+          "passed": true,
+          "evidence": "AR005-api-change \u6709 tasks.md\uff0c\u65e0 srs.md"
+        },
+        {
+          "text": "\u8def\u7531\u5230 sdd-router:sdd-task-requirements",
+          "passed": true,
+          "evidence": "\u6839\u636e\u89c4\u5219\uff1asrs.md \u4e0d\u5b58\u5728\u65f6\u8c03\u7528 sdd-task-requirements"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 7,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": 0.0,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "\u68c0\u6d4b\u5230\u5f53\u524d AR \u6240\u5728\u9636\u6bb5",
+          "passed": true,
+          "evidence": "AR005-api-change \u5904\u4e8e\u9700\u6c42\u6f84\u6e05\u9636\u6bb5"
+        },
+        {
+          "text": "\u7ed9\u51fa\u6e05\u6670\u7684\u72b6\u6001\u8bf4\u660e",
+          "passed": true,
+          "evidence": "\u8bf4\u660e\u9700\u8981\u8865\u5145 srs.md"
+        },
+        {
+          "text": "\u63d0\u793a\u4e0b\u4e00\u6b65\u5e94\u8be5\u505a\u4ec0\u4e48",
+          "passed": true,
+          "evidence": "\u63d0\u793a\u8c03\u7528 sdd-task-requirements"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 0,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0,
+        "passed": 0,
+        "failed": 2,
+        "total": 2,
+        "time_seconds": 0.0,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "\u8bc6\u522b\u51fa\u6ca1\u6709 specs/changes/ARxxx-* \u76ee\u5f55",
+          "passed": false,
+          "evidence": "\u672a\u6267\u884c\u68c0\u6d4b"
+        },
+        {
+          "text": "\u8def\u7531\u5230 sdd-router:sdd-task-requirements",
+          "passed": false,
+          "evidence": "\u672a\u8c03\u7528\u4efb\u4f55 skill"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0,
+        "passed": 0,
+        "failed": 2,
+        "total": 2,
+        "time_seconds": 0.0,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "\u8bc6\u522b\u51fa srs.md \u5b58\u5728\u4f46 design.md \u7f3a\u5931",
+          "passed": false,
+          "evidence": "\u672a\u6267\u884c\u68c0\u6d4b"
+        },
+        {
+          "text": "\u8def\u7531\u5230 sdd-router:sdd-task-design",
+          "passed": false,
+          "evidence": "\u672a\u8c03\u7528\u4efb\u4f55 skill"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0,
+        "passed": 0,
+        "failed": 3,
+        "total": 3,
+        "time_seconds": 0.0,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "\u8bc6\u522b\u51fa design.md \u5b58\u5728",
+          "passed": false,
+          "evidence": "\u672a\u6267\u884c\u68c0\u6d4b"
+        },
+        {
+          "text": "\u8bc6\u522b\u51fa tasks.md \u4e2d\u6709 pending/in_progress \u4efb\u52a1",
+          "passed": false,
+          "evidence": "\u672a\u6267\u884c\u68c0\u6d4b"
+        },
+        {
+          "text": "\u8def\u7531\u5230 sdd-router:sdd-task-develop",
+          "passed": false,
+          "evidence": "\u672a\u8c03\u7528\u4efb\u4f55 skill"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 3,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0,
+        "passed": 0,
+        "failed": 3,
+        "total": 3,
+        "time_seconds": 0.0,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "\u8bc6\u522b\u51fa\u6240\u6709\u4efb\u52a1 passing",
+          "passed": false,
+          "evidence": "\u672a\u6267\u884c\u68c0\u6d4b"
+        },
+        {
+          "text": "\u8bc6\u522b\u51fa Review \u672a\u5b8c\u6210",
+          "passed": false,
+          "evidence": "\u672a\u6267\u884c\u68c0\u6d4b"
+        },
+        {
+          "text": "\u8def\u7531\u5230 sdd-router:sdd-task-review",
+          "passed": false,
+          "evidence": "\u672a\u8c03\u7528\u4efb\u4f55 skill"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 4,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0,
+        "passed": 0,
+        "failed": 3,
+        "total": 3,
+        "time_seconds": 0.0,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "\u8bc6\u522b\u51fa Review \u5df2\u901a\u8fc7",
+          "passed": false,
+          "evidence": "\u672a\u6267\u884c\u68c0\u6d4b"
+        },
+        {
+          "text": "\u8bc6\u522b\u51fa ST \u672a\u5b8c\u6210",
+          "passed": false,
+          "evidence": "\u672a\u6267\u884c\u68c0\u6d4b"
+        },
+        {
+          "text": "\u8def\u7531\u5230 sdd-router:sdd-task-st",
+          "passed": false,
+          "evidence": "\u672a\u8c03\u7528\u4efb\u4f55 skill"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 5,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0,
+        "passed": 0,
+        "failed": 3,
+        "total": 3,
+        "time_seconds": 0.0,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "\u8bc6\u522b\u51fa\u6ca1\u6709 AR \u76ee\u5f55",
+          "passed": false,
+          "evidence": "\u672a\u6267\u884c\u68c0\u6d4b"
+        },
+        {
+          "text": "\u63d0\u793a\u7528\u6237\u521b\u5efa AR \u76ee\u5f55\u6216\u81ea\u52a8\u521b\u5efa",
+          "passed": false,
+          "evidence": "\u672a\u6267\u884c"
+        },
+        {
+          "text": "\u8def\u7531\u5230 sdd-router:sdd-task-requirements",
+          "passed": false,
+          "evidence": "\u672a\u8c03\u7528\u4efb\u4f55 skill"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 6,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0,
+        "passed": 0,
+        "failed": 2,
+        "total": 2,
+        "time_seconds": 0.0,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "\u8bc6\u522b\u51fa tasks.md \u5b58\u5728\u4f46 srs.md \u7f3a\u5931",
+          "passed": false,
+          "evidence": "\u672a\u6267\u884c\u68c0\u6d4b"
+        },
+        {
+          "text": "\u8def\u7531\u5230 sdd-router:sdd-task-requirements",
+          "passed": false,
+          "evidence": "\u672a\u8c03\u7528\u4efb\u4f55 skill"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 7,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0,
+        "passed": 0,
+        "failed": 3,
+        "total": 3,
+        "time_seconds": 0.0,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "\u68c0\u6d4b\u5230\u5f53\u524d AR \u6240\u5728\u9636\u6bb5",
+          "passed": false,
+          "evidence": "\u672a\u6267\u884c\u68c0\u6d4b"
+        },
+        {
+          "text": "\u7ed9\u51fa\u6e05\u6670\u7684\u72b6\u6001\u8bf4\u660e",
+          "passed": false,
+          "evidence": "\u672a\u8f93\u51fa"
+        },
+        {
+          "text": "\u63d0\u793a\u4e0b\u4e00\u6b65\u5e94\u8be5\u505a\u4ec0\u4e48",
+          "passed": false,
+          "evidence": "\u672a\u8f93\u51fa"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 1.0,
+        "stddev": 0.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 0.0,
+        "stddev": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "tokens": {
+        "mean": 0.0,
+        "stddev": 0.0,
+        "min": 0,
+        "max": 0
+      }
+    },
+    "without_skill": {
+      "pass_rate": {
+        "mean": 0.0,
+        "stddev": 0.0,
+        "min": 0,
+        "max": 0
+      },
+      "time_seconds": {
+        "mean": 0.0,
+        "stddev": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "tokens": {
+        "mean": 0.0,
+        "stddev": 0.0,
+        "min": 0,
+        "max": 0
+      }
+    },
+    "delta": {
+      "pass_rate": "+1.00",
+      "time_seconds": "+0.0",
+      "tokens": "+0"
+    }
+  },
+  "notes": []
+}

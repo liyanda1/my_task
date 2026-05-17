@@ -1,0 +1,11 @@
+{
+  "eval_id": 3,
+  "eval_name": "review_routing",
+  "prompt": "在 specs/changes/AR003-refactor/ 下 tasks.md 中所有任务状态都是 'passing'，但没有 Review 通过记录，应该路由到哪个阶段 skill？",
+  "expected_output": "调用 sdd-task-review skill，进行规范性/合规性检查",
+  "assertions": [
+    "识别出所有任务 passing",
+    "识别出 Review 未完成",
+    "路由到 sdd-router:sdd-task-review"
+  ]
+}

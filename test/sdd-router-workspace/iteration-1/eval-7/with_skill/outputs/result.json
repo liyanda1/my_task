@@ -1,0 +1,8 @@
+{
+  "eval_id": 7,
+  "eval_name": "query_status",
+  "prompt": "用户问 '当前 AR 进行到哪一步了？'，需要判断状态并告知用户",
+  "expected_output": "检测项目状态，给出当前进度说明，提示下一步操作",
+  "actual_output": "检测到 spec/changes/AR005-api-change/ 有 tasks.md 但无 srs.md，提示需要补充 srs.md",
+  "routing_result": "sdd-router:sdd-task-requirements"
+}

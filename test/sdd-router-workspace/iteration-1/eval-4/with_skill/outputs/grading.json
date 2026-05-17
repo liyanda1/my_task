@@ -1,0 +1,26 @@
+{
+  "expectations": [
+    {
+      "text": "识别出 Review 已通过",
+      "passed": true,
+      "evidence": "tasks.md Review 部分标记为 PASS"
+    },
+    {
+      "text": "识别出 ST 未完成",
+      "passed": true,
+      "evidence": "tasks.md 无 ST 测试记录"
+    },
+    {
+      "text": "路由到 sdd-router:sdd-task-st",
+      "passed": true,
+      "evidence": "根据规则：Review PASS 且 ST 未完成时调用 sdd-task-st"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "claims": []
+}

@@ -1,0 +1,47 @@
+{
+  "skill_name": "sdd-task-requirements",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "当前是一个新的 C++ 组件工程，组件详细设计文件在 specs/component-detail-design/component_spec.md，工程根目录有 AGENTS.md。specs/changes/ 为空。用户说：'AR 编号 AR001，主题是添加重试机制。这个组件是一个 HTTP 客户端库，当前没有重试功能，每次请求失败直接返回错误。'。请按 skill 指示执行需求准备流程。",
+      "expected_output": "执行 Step 1 建立领域知识（读取组件详设、AGENTS.md、扫描代码结构），然后 Step 2 获取 AR 基本信息，Step 3 进行需求澄清（至少进行 Round 1 提问），最终生成 srs.md 和 tasks.md 草稿。不应跳过领域知识阶段直接写文档。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 2,
+      "prompt": "组件工程已有 specs/changes/AR001-add-retry/ 目录但内容为空。用户说：'帮我澄清 AR001 的需求。AR001 是给消息队列添加优先级支持，当前消息按 FIFO 处理。我需要支持高优先级消息优先消费。'。请按 skill 指示执行。",
+      "expected_output": "应先检查组件详设、AGENTS.md 建立领域知识，然后进行多轮需求澄清提问。应询问影响范围、性能要求、兼容性约束等。至少包含 Round 1（范围与目标）的提问。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 3,
+      "prompt": "组件工程不存在 specs/component-detail-design/ 目录。工程根目录没有 AGENTS.md。specs/changes/ 为空。用户说：'开始一个新 AR，AR002，主题是增加日志轮转。'。请按 skill 指示执行。",
+      "expected_output": "应正常执行需求准备流程。Step 1a 读取组件详设时应记录'组件详设缺失'并继续。Step 1b AGENTS.md 不存在时应跳过。流程不应因缺少这些文件而报错或停止，应继续进行需求澄清和文档生成。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 4,
+      "prompt": "specs/changes/AR001-add-retry/ 目录下已有 srs.md 和 tasks.md（内容完整，已保存）。用户说：'帮我再做一次需求澄清，把 srs.md 更新一下。'。请按 skill 指示执行。",
+      "expected_output": "应读取已有的 srs.md 和 tasks.md 作为当前状态基线，然后进行需求澄清。澄清完成后更新 srs.md。不应忽略已有文档从零开始，也不应拒绝更新已有文档。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 5,
+      "prompt": "组件工程结构完整，有组件详设和 AGENTS.md。用户说：'AR003，添加缓存功能。这是一个简单的功能，就是在查询接口前面加一层 Redis 缓存。不需要复杂的设计，两三个任务就够了。'。请按 skill 指示执行需求准备流程。",
+      "expected_output": "即使 AR 被描述为'简单'，也应完整执行所有步骤：建立领域知识、获取 AR 信息、需求澄清、生成 srs.md 和 tasks.md。应按'小型 AR'的扩展指南处理（简洁 srs.md，2-4 个任务）。需求澄清不应被跳过——至少应询问缓存策略、过期时间、缓存穿透处理等。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 6,
+      "prompt": "用户在需求澄清过程中说：'需求很清楚了，不用再问了，直接生成文档吧。我已经把所有需求列在下面的文字里了：...（一段详细的功能描述）'。请按 skill 指示执行。",
+      "expected_output": "应评估用户提供的信息是否足够充分（能否清楚描述每个功能点、验收标准、影响范围而不需要猜测）。如果信息充分，可以跳过剩余提问轮次直接进入 Step 4 生成 srs.md。如果信息不充分（如缺少验收标准、边界条件），应继续必要的澄清提问。",
+      "files": [],
+      "expectations": []
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "eval_id": 2,
+  "eval_name": "develop_task_routing",
+  "prompt": "在 specs/changes/AR002-bugfix/ 下发现 design.md 和 tasks.md，tasks.md 中有 status: in_progress 的任务 'fix_buffer_overflow'，应该路由到哪个阶段 skill？",
+  "expected_output": "调用 sdd-task-develop skill，执行代码开发",
+  "actual_output": "调用 sdd-task-develop skill，因为 design.md 存在且 tasks.md 中有 in_progress 任务",
+  "routing_result": "sdd-router:sdd-task-develop"
+}

@@ -1,0 +1,47 @@
+{
+  "skill_name": "sdd-task-st",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "specs/changes/AR001-add-retry/ 下所有任务 passing，tasks.md 中有 'Review 记录 — PASS' 条目。srs.md 包含 3 个功能需求，每个需求有 Given/When/Then 验收标准。design.md 有边界条件矩阵（5 行）和错误处理表（3 项）。请按 skill 指示执行 ST 流程。",
+      "expected_output": "Step 1 就绪检查通过。Step 2 基于 srs.md 生成 st-cases.md，至少包含：3 个正常路径用例（每需求 1 个）、5 个边界条件用例（矩阵每行 1 个）、3 个异常处理用例（错误表每项 1 个），合计至少 11 个用例。Step 3 执行测试并记录结果。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 2,
+      "prompt": "ST 就绪检查时，tasks.md 中 T003 的 status 仍为 in_progress（其他任务 passing），Review 记录存在。请按 skill 指示执行。",
+      "expected_output": "Step 1 就绪检查应失败——'所有任务 status: passing' 条件不满足。应停止 ST 流程，提示用户先完成 T003 再进行 ST。不应继续生成测试用例或执行测试。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 3,
+      "prompt": "ST 执行中，ST-003（边界条件：超时值为 0 时应立即返回错误）测试 FAIL，严重性判定为 Critical。其他所有用例 PASS。请按 skill 指示处理。",
+      "expected_output": "Step 4 应判定为 Critical 缺陷（核心功能行为不符合预期）。必须在 tasks.md 中将对应任务恢复为 in_progress，调用 sdd-router:sdd-task-develop 修复，修复后重新执行受影响的 ST 用例。不应标记为 Go。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 4,
+      "prompt": "ST 执行中，ST-007（异常处理：网络断开时应返回特定错误码）测试 FAIL，严重性判定为 Minor（错误码返回的是通用错误而非特定错误码，但错误处理流程本身正确）。其他所有用例 PASS。请按 skill 指示处理。",
+      "expected_output": "应记录 Minor 缺陷，通过 AskUserQuestion 与用户确认是否立即修复。如果用户选择延后处理，可给出 Conditional-Go（所有核心路径验证通过 + Minor 已记录）。不应直接归档而不记录 Minor 问题。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 5,
+      "prompt": "ST 所有用例 PASS，需求覆盖率 100%，无 Critical/Major 缺陷，有 1 个 Minor 缺陷已记录。用户确认 Go。请按 skill 指示执行归档。",
+      "expected_output": "Step 7a 准备归档内容：将 srs.md、design.md、st-cases.md 复制到 specs/archive/AR001-add-retry/。tasks.md 不归档。Step 7b 执行归档操作。Step 7c 提交 git commit（包含 ST 结果摘要）。Step 7d 输出完成摘要。不应归档 tasks.md。",
+      "files": [],
+      "expectations": []
+    },
+    {
+      "id": 6,
+      "prompt": "ST 执行中有 2 个用例 FAIL，1 个 Critical（核心重试逻辑在特定条件下无限循环），1 个 Major（重试次数计数不准确）。用户确认修复后重跑。修复后所有用例 PASS。请按 skill 指示执行。",
+      "expected_output": "第 1 轮 ST 结果为 FAIL。修复后重新执行受影响的用例（或全部用例），更新 st-cases.md 的实际结果和状态。ST 报告中应记录执行轮次为'第 2 轮'，需求覆盖矩阵和测试执行汇总应反映最终结果。Go 条件满足后归档。",
+      "files": [],
+      "expectations": []
+    }
+  ]
+}

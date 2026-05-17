@@ -1,0 +1,26 @@
+{
+  "expectations": [
+    {
+      "text": "识别出没有 AR 目录",
+      "passed": true,
+      "evidence": "specs/changes/ 目录为空"
+    },
+    {
+      "text": "提示用户创建 AR 目录或自动创建",
+      "passed": true,
+      "evidence": "skill 提示需要创建 AR 目录"
+    },
+    {
+      "text": "路由到 sdd-router:sdd-task-requirements",
+      "passed": true,
+      "evidence": "根据规则：无 AR 目录时调用 sdd-task-requirements"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "claims": []
+}

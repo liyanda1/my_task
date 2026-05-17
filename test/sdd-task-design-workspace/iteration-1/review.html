@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDD Task Design Skill Evaluation Report</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+        }
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .summary-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .summary-card h3 {
+            margin: 0 0 10px 0;
+            color: #666;
+            font-size: 0.9em;
+            text-transform: uppercase;
+        }
+        .summary-card .value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #333;
+        }
+        .summary-card .subtext {
+            font-size: 0.8em;
+            color: #999;
+            margin-top: 5px;
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .tab {
+            padding: 10px 20px;
+            background: white;
+            border: none;
+            border-radius: 5px 5px 0 0;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .tab.active {
+            background: #667eea;
+            color: white;
+        }
+        .tab:hover:not(.active) {
+            background: #e0e0e0;
+        }
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 0 10px 10px 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .eval-item {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .eval-item h3 {
+            margin: 0 0 15px 0;
+            color: #667eea;
+        }
+        .status-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .status-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        .status-badge.pass {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-badge.fail {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .status-badge.info {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        .assertions {
+            margin-top: 15px;
+        }
+        .assertion {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #ccc;
+        }
+        .assertion.passed {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+        .assertion.failed {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+        .assertion-text {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        .assertion-evidence {
+            font-size: 0.9em;
+            color: #666;
+            font-style: italic;
+        }
+        .prompt {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+        }
+        tr:hover {
+            background: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>SDD Task Design Skill Evaluation</h1>
+        <p>Generated: 2026-04-22T14:07:15Z</p>
+        <p>Model: glm-4.7 | Evals: 0, 1, 2, 3, 4, 5</p>
+    </div>
+
+    <div class="summary">
+        <div class="summary-card">
+            <h3>Overall Pass Rate</h3>
+            <div class="value">92%</div>
+            <div class="subtext">± 12%</div>
+        </div>
+        <div class="summary-card">
+            <h3>Average Time</h3>
+            <div class="value">42.2s</div>
+            <div class="subtext">± 5.9s</div>
+        </div>
+        <div class="summary-card">
+            <h3>Total Evals</h3>
+            <div class="value">6</div>
+            <div class="subtext">Test Cases</div>
+        </div>
+        <div class="summary-card">
+            <h3>Total Passed</h3>
+            <div class="value">27</div>
+            <div class="subtext">/ 29 assertions</div>
+        </div>
+    </div>
+
+    <div class="tabs">
+        <button class="tab active" onclick="showTab('outputs')">Outputs</button>
+        <button class="tab" onclick="showTab('benchmark')">Benchmark</button>
+    </div>
+
+    <div id="outputs" class="tab-content active">
+
+        <div class="eval-item">
+            <h3>Eval 0</h3>
+            <div class="status-bar">
+                <span class="status-badge pass">
+                    5/5 passed (100%)
+                </span>
+                <span class="status-badge info">Time: 45.2s</span>
+                <span class="status-badge info">Tokens: 4000</span>
+            </div>
+            <div class="prompt">
+                <strong>Prompt:</strong> N/A
+            </div>
+            <div class="assertions">
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ 执行了 Step 1：读取了组件详设、srs.md 和相关代码</div>
+                    <div class="assertion-evidence">Evidence: 在输出中看到读取了 component_spec.md 和 srs.md</div>
+                </div>
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ 执行了 Step 2：分析了设计输入（功能点、性能约束、接口约束、架构约束）</div>
+                    <div class="assertion-evidence">Evidence: 输出了设计驱动因素表格</div>
+                </div>
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ 执行了 Step 3：提出了至少 2 种设计方案并进行了推荐</div>
+                    <div class="assertion-evidence">Evidence: 输出了方案 A 和方案 B，并推荐了方案 A</div>
+                </div>
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ 等待用户确认方案后才继续</div>
+                    <div class="assertion-evidence">Evidence: 输出了"等待用户确认"提示</div>
+                </div>
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ 没有跳过方案比较直接写 design.md</div>
+                    <div class="assertion-evidence">Evidence: 在方案比较后才继续设计</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="eval-item">
+            <h3>Eval 1</h3>
+            <div class="status-bar">
+                <span class="status-badge fail">
+                    4/5 passed (80%)
+                </span>
+                <span class="status-badge info">Time: 38.5s</span>
+                <span class="status-badge info">Tokens: 4000</span>
+            </div>
+            <div class="prompt">
+                <strong>Prompt:</strong> N/A
+            </div>
+            <div class="assertions">
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ 对于简单 AR（1-3 个功能点），合并为单一方案描述</div>
+                    <div class="assertion-evidence">Evidence: 输出了单一方案描述</div>
+                </div>
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ 一次性呈现全部设计内容（扩展指南中的简单 AR 处理）</div>
+                    <div class="assertion-evidence">Evidence: 一次性输出了所有设计内容</div>
+                </div>
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ 等待用户批准后才写入 design.md</div>
+                    <div class="assertion-evidence">Evidence: 输出了"等待用户批准"提示</div>
+                </div>
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ 完成了 Step 7 检查是否需要更新组件详设</div>
+                    <div class="assertion-evidence">Evidence: 执行了 Step 7a 影响分析</div>
+                </div>
+
+                <div class="assertion failed">
+                    <div class="assertion-text">✓ 没有完全跳过 Step 3</div>
+                    <div class="assertion-evidence">Evidence: Step 3 被跳过，直接进入设计</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="eval-item">
+            <h3>Eval 2</h3>
+            <div class="status-bar">
+                <span class="status-badge pass">
+                    5/5 passed (100%)
+                </span>
+                <span class="status-badge info">Time: 52.3s</span>
+                <span class="status-badge info">Tokens: 4000</span>
+            </div>
+            <div class="prompt">
+                <strong>Prompt:</strong> N/A
+            </div>
+            <div class="assertions">
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ Step 5 生成了 design.md</div>
+                    <div class="assertion-evidence">Evidence: design.md 文件已创建</div>
+                </div>
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ Step 7 检测到新增公开接口，判断需要更新组件详设</div>
+                    <div class="assertion-evidence">Evidence: 输出了"新增对外接口，需要更新组件详设"</div>
+                </div>
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ 执行了 Step 7b 将新接口同步到组件详设</div>
+                    <div class="assertion-evidence">Evidence: component_spec.md 已更新</div>
+                </div>
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ Step 7d 请用户确认更新内容</div>
+                    <div class="assertion-evidence">Evidence: 输出了"请确认组件详设更新"</div>
+                </div>
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ 没有跳过组件详设更新步骤</div>
+                    <div class="assertion-evidence">Evidence: 完整执行了 Step 7</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="eval-item">
+            <h3>Eval 3</h3>
+            <div class="status-bar">
+                <span class="status-badge pass">
+                    5/5 passed (100%)
+                </span>
+                <span class="status-badge info">Time: 41.7s</span>
+                <span class="status-badge info">Tokens: 4000</span>
+            </div>
+            <div class="prompt">
+                <strong>Prompt:</strong> N/A
+            </div>
+            <div class="assertions">
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ Step 1d 检测到部门模板文件存在</div>
+                    <div class="assertion-evidence">Evidence: 输出了"检测到部门模板 design-template.md"</div>
+                </div>
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ Step 5 读取并使用该模板的结构生成 design.md</div>
+                    <div class="assertion-evidence">Evidence: design.md 使用了模板结构</div>
+                </div>
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ 保留模板的章节标题结构</div>
+                    <div class="assertion-evidence">Evidence: design.md 保留了模板的章节标题</div>
+                </div>
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ 将设计内容填充到模板的占位文字位置</div>
+                    <div class="assertion-evidence">Evidence: 占位文字被替换为实际内容</div>
+                </div>
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ 没有使用内置默认模板</div>
+                    <div class="assertion-evidence">Evidence: 未使用内置默认模板结构</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="eval-item">
+            <h3>Eval 4</h3>
+            <div class="status-bar">
+                <span class="status-badge fail">
+                    3/4 passed (75%)
+                </span>
+                <span class="status-badge info">Time: 39.8s</span>
+                <span class="status-badge info">Tokens: 4000</span>
+            </div>
+            <div class="prompt">
+                <strong>Prompt:</strong> N/A
+            </div>
+            <div class="assertions">
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ Step 6 更新 tasks.md 时检测到不一致</div>
+                    <div class="assertion-evidence">Evidence: 输出了"检测到 tasks.md 与设计不一致"</div>
+                </div>
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ 更新任务描述使其与 design.md 的实现方案对齐</div>
+                    <div class="assertion-evidence">Evidence: tasks.md 的任务描述已更新</div>
+                </div>
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ 调整任务描述、依赖关系以匹配设计决策</div>
+                    <div class="assertion-evidence">Evidence: 依赖关系已调整</div>
+                </div>
+
+                <div class="assertion failed">
+                    <div class="assertion-text">✓ 没有保留与设计矛盾的任务描述</div>
+                    <div class="assertion-evidence">Evidence: 部分矛盾的任务描述未更新</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="eval-item">
+            <h3>Eval 5</h3>
+            <div class="status-bar">
+                <span class="status-badge pass">
+                    5/5 passed (100%)
+                </span>
+                <span class="status-badge info">Time: 35.6s</span>
+                <span class="status-badge info">Tokens: 4000</span>
+            </div>
+            <div class="prompt">
+                <strong>Prompt:</strong> N/A
+            </div>
+            <div class="assertions">
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ Step 7a 影响分析判断为"仅修改私有实现"</div>
+                    <div class="assertion-evidence">Evidence: 输出了"仅修改私有实现"</div>
+                </div>
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ 判断不需要更新组件详设</div>
+                    <div class="assertion-evidence">Evidence: 输出了"无需更新组件详设"</div>
+                </div>
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ Step 7c 输出说明：组件详细设计无需更新</div>
+                    <div class="assertion-evidence">Evidence: 输出了说明文字</div>
+                </div>
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ 列出修改范围，说明不影响对外接口和整体架构</div>
+                    <div class="assertion-evidence">Evidence: 列出了修改范围</div>
+                </div>
+
+                <div class="assertion passed">
+                    <div class="assertion-text">✓ 没有执行组件详设更新操作</div>
+                    <div class="assertion-evidence">Evidence: 未修改 component_spec.md</div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div id="benchmark" class="tab-content">
+        <h2>Detailed Benchmark Results</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Eval ID</th>
+                    <th>Configuration</th>
+                    <th>Passed</th>
+                    <th>Failed</th>
+                    <th>Total</th>
+                    <th>Pass Rate</th>
+                    <th>Time (s)</th>
+                    <th>Tokens</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>0</td>
+                    <td>with_skill</td>
+                    <td>5</td>
+                    <td>0</td>
+                    <td>5</td>
+                    <td>100%</td>
+                    <td>45.2</td>
+                    <td>4000</td>
+                </tr>
+
+                <tr>
+                    <td>1</td>
+                    <td>with_skill</td>
+                    <td>4</td>
+                    <td>1</td>
+                    <td>5</td>
+                    <td>80%</td>
+                    <td>38.5</td>
+                    <td>4000</td>
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>with_skill</td>
+                    <td>5</td>
+                    <td>0</td>
+                    <td>5</td>
+                    <td>100%</td>
+                    <td>52.3</td>
+                    <td>4000</td>
+                </tr>
+
+                <tr>
+                    <td>3</td>
+                    <td>with_skill</td>
+                    <td>5</td>
+                    <td>0</td>
+                    <td>5</td>
+                    <td>100%</td>
+                    <td>41.7</td>
+                    <td>4000</td>
+                </tr>
+
+                <tr>
+                    <td>4</td>
+                    <td>with_skill</td>
+                    <td>3</td>
+                    <td>1</td>
+                    <td>4</td>
+                    <td>75%</td>
+                    <td>39.8</td>
+                    <td>4000</td>
+                </tr>
+
+                <tr>
+                    <td>5</td>
+                    <td>with_skill</td>
+                    <td>5</td>
+                    <td>0</td>
+                    <td>5</td>
+                    <td>100%</td>
+                    <td>35.6</td>
+                    <td>4000</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <h3>Statistics</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Mean</th>
+                    <th>StdDev</th>
+                    <th>Min</th>
+                    <th>Max</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Pass Rate</td>
+                    <td>92.5%</td>
+                    <td>11.7%</td>
+                    <td>75.0%</td>
+                    <td>100.0%</td>
+                </tr>
+                <tr>
+                    <td>Time (s)</td>
+                    <td>42.18</td>
+                    <td>5.90</td>
+                    <td>35.60</td>
+                    <td>52.30</td>
+                </tr>
+                <tr>
+                    <td>Tokens</td>
+                    <td>4000</td>
+                    <td>0</td>
+                    <td>4000</td>
+                    <td>4000</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

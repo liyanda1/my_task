@@ -1,0 +1,21 @@
+{
+  "expectations": [
+    {
+      "text": "识别出没有 specs/changes/ARxxx-* 目录",
+      "passed": true,
+      "evidence": "specs/changes/ 目录为空，无 AR 子目录"
+    },
+    {
+      "text": "路由到 sdd-router:sdd-task-requirements",
+      "passed": true,
+      "evidence": "根据检测，无 AR 目录时调用 sdd-task-requirements"
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 0,
+    "total": 2,
+    "pass_rate": 1.0
+  },
+  "claims": []
+}

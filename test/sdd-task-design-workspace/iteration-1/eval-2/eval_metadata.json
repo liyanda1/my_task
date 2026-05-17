@@ -1,0 +1,32 @@
+{
+  "eval_id": 2,
+  "eval_name": "component-design-update-with-new-interfaces",
+  "prompt": "specs/changes/AR001-add-retry/ has srs.md (added 2 public interfaces) and tasks.md. Component detailed design exists. After user selects Solution A, design is confirmed. Please follow skill instructions to execute design.md generation and component detailed design update.",
+  "assertions": [
+    {
+      "id": "assert-1",
+      "text": "Step 5 generated design.md",
+      "type": "behavioral"
+    },
+    {
+      "id": "assert-2",
+      "text": "Step 7 detected new public interfaces and determined that component detailed design needs updating (change type 'new public interface')",
+      "type": "behavioral"
+    },
+    {
+      "id": "assert-3",
+      "text": "Executed Step 7b to synchronize new interfaces to component detailed design",
+      "type": "behavioral"
+    },
+    {
+      "id": "assert-4",
+      "text": "Step 7d asked user to confirm update content",
+      "type": "behavioral"
+    },
+    {
+      "id": "assert-5",
+      "text": "Did not skip component detailed design update steps",
+      "type": "negative"
+    }
+  ]
+}

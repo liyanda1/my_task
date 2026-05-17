@@ -1,0 +1,26 @@
+{
+  "expectations": [
+    {
+      "text": "识别出 design.md 存在",
+      "passed": false,
+      "evidence": "未执行检测"
+    },
+    {
+      "text": "识别出 tasks.md 中有 pending/in_progress 任务",
+      "passed": false,
+      "evidence": "未执行检测"
+    },
+    {
+      "text": "路由到 sdd-router:sdd-task-develop",
+      "passed": false,
+      "evidence": "未调用任何 skill"
+    }
+  ],
+  "summary": {
+    "passed": 0,
+    "failed": 3,
+    "total": 3,
+    "pass_rate": 0
+  },
+  "claims": []
+}

@@ -1,0 +1,26 @@
+{
+  "expectations": [
+    {
+      "text": "识别出 design.md 存在",
+      "passed": true,
+      "evidence": "AR003-bugfix 目录有 design.md"
+    },
+    {
+      "text": "识别出 tasks.md 中有 pending/in_progress 任务",
+      "passed": true,
+      "evidence": "tasks.md 有 fix_buffer_overflow 任务状态为 in_progress"
+    },
+    {
+      "text": "路由到 sdd-router:sdd-task-develop",
+      "passed": true,
+      "evidence": "根据规则：design.md 存在且有 pending/in_progress 任务时调用 sdd-task-develop"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "claims": []
+}

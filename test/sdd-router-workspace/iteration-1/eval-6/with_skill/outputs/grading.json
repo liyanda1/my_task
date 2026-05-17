@@ -1,0 +1,21 @@
+{
+  "expectations": [
+    {
+      "text": "识别出 tasks.md 存在但 srs.md 缺失",
+      "passed": true,
+      "evidence": "AR005-api-change 有 tasks.md，无 srs.md"
+    },
+    {
+      "text": "路由到 sdd-router:sdd-task-requirements",
+      "passed": true,
+      "evidence": "根据规则：srs.md 不存在时调用 sdd-task-requirements"
+    }
+  ],
+  "summary": {
+    "passed": 2,
+    "failed": 0,
+    "total": 2,
+    "pass_rate": 1.0
+  },
+  "claims": []
+}

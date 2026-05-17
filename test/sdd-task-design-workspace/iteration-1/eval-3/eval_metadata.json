@@ -1,0 +1,32 @@
+{
+  "eval_id": 3,
+  "eval_name": "use-department-design-template",
+  "prompt": "specs/changes/AR001-add-retry/ has srs.md and tasks.md. Project has specs/templates/design-template.md (department template). Please follow skill instructions to execute the design process.",
+  "assertions": [
+    {
+      "id": "assert-1",
+      "text": "Step 1d detected department template file exists",
+      "type": "behavioral"
+    },
+    {
+      "id": "assert-2",
+      "text": "Step 5 read and used the template structure to generate design.md",
+      "type": "behavioral"
+    },
+    {
+      "id": "assert-3",
+      "text": "Preserved template section heading structure",
+      "type": "behavioral"
+    },
+    {
+      "id": "assert-4",
+      "text": "Filled design content into template placeholder text positions",
+      "type": "behavioral"
+    },
+    {
+      "id": "assert-5",
+      "text": "Did not use built-in default template",
+      "type": "negative"
+    }
+  ]
+}

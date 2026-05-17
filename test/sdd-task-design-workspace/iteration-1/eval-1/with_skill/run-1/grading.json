@@ -1,0 +1,52 @@
+{
+  "summary": {
+    "pass_rate": 0.8,
+    "passed": 4,
+    "failed": 1,
+    "total": 5
+  },
+  "expectations": [
+    {
+      "text": "对于简单 AR（1-3 个功能点），合并为单一方案描述",
+      "passed": true,
+      "evidence": "输出了单一方案描述"
+    },
+    {
+      "text": "一次性呈现全部设计内容（扩展指南中的简单 AR 处理）",
+      "passed": true,
+      "evidence": "一次性输出了所有设计内容"
+    },
+    {
+      "text": "等待用户批准后才写入 design.md",
+      "passed": true,
+      "evidence": "输出了\"等待用户批准\"提示"
+    },
+    {
+      "text": "完成了 Step 7 检查是否需要更新组件详设",
+      "passed": true,
+      "evidence": "执行了 Step 7a 影响分析"
+    },
+    {
+      "text": "没有完全跳过 Step 3",
+      "passed": false,
+      "evidence": "Step 3 被跳过，直接进入设计"
+    }
+  ],
+  "timing": {
+    "total_duration_seconds": 38.5,
+    "executor_start": "2026-04-22T14:03:33.482373+00:00",
+    "executor_end": [
+      1776866651.982377
+    ]
+  },
+  "execution_metrics": {
+    "total_tool_calls": 10,
+    "output_chars": 4000,
+    "errors_encountered": 0
+  },
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": []
+  }
+}

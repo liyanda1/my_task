@@ -1,0 +1,8 @@
+{
+  "eval_id": 1,
+  "eval_name": "design_missing_routing",
+  "prompt": "在 specs/changes/AR001-feature/ 下发现 srs.md 和 tasks.md，但 design.md 缺失，应该路由到哪个阶段 skill？",
+  "expected_output": "调用 sdd-task-design skill，开始详细设计生成",
+  "actual_output": "调用 sdd-task-design skill，因为 srs.md 存在但 design.md 缺失",
+  "routing_result": "sdd-router:sdd-task-design"
+}

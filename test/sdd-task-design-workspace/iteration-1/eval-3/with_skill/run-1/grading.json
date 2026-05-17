@@ -1,0 +1,52 @@
+{
+  "summary": {
+    "pass_rate": 1.0,
+    "passed": 5,
+    "failed": 0,
+    "total": 5
+  },
+  "expectations": [
+    {
+      "text": "Step 1d 检测到部门模板文件存在",
+      "passed": true,
+      "evidence": "输出了\"检测到部门模板 design-template.md\""
+    },
+    {
+      "text": "Step 5 读取并使用该模板的结构生成 design.md",
+      "passed": true,
+      "evidence": "design.md 使用了模板结构"
+    },
+    {
+      "text": "保留模板的章节标题结构",
+      "passed": true,
+      "evidence": "design.md 保留了模板的章节标题"
+    },
+    {
+      "text": "将设计内容填充到模板的占位文字位置",
+      "passed": true,
+      "evidence": "占位文字被替换为实际内容"
+    },
+    {
+      "text": "没有使用内置默认模板",
+      "passed": true,
+      "evidence": "未使用内置默认模板结构"
+    }
+  ],
+  "timing": {
+    "total_duration_seconds": 41.7,
+    "executor_start": "2026-04-22T14:03:33.483732+00:00",
+    "executor_end": [
+      1776866655.183737
+    ]
+  },
+  "execution_metrics": {
+    "total_tool_calls": 10,
+    "output_chars": 4000,
+    "errors_encountered": 0
+  },
+  "user_notes_summary": {
+    "uncertainties": [],
+    "needs_review": [],
+    "workarounds": []
+  }
+}

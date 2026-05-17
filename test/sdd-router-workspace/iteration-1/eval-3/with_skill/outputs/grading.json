@@ -1,0 +1,26 @@
+{
+  "expectations": [
+    {
+      "text": "识别出所有任务 passing",
+      "passed": true,
+      "evidence": "tasks.md 中 refactor_code 任务状态为 passing"
+    },
+    {
+      "text": "识别出 Review 未完成",
+      "passed": true,
+      "evidence": "tasks.md 没有 Review 通过记录"
+    },
+    {
+      "text": "路由到 sdd-router:sdd-task-review",
+      "passed": true,
+      "evidence": "根据规则：所有任务 passing 且无 Review 记录时调用 sdd-task-review"
+    }
+  ],
+  "summary": {
+    "passed": 3,
+    "failed": 0,
+    "total": 3,
+    "pass_rate": 1.0
+  },
+  "claims": []
+}

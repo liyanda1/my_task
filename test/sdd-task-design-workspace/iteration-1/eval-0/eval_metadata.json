@@ -1,0 +1,32 @@
+{
+  "eval_id": 0,
+  "eval_name": "normal-case-with-srs-and-tasks",
+  "prompt": "specs/changes/AR001-add-retry/ directory has complete srs.md (describing HTTP client retry mechanism requirements with 3 features, performance requirements, interface constraints) and tasks.md (4 pending tasks). design.md does not exist. Component detailed design is at specs/component-detail-design/component_spec.md. Please follow the skill instructions to execute the design process.",
+  "assertions": [
+    {
+      "id": "assert-1",
+      "text": "Executed Step 1: Read component detailed design, srs.md, and related code",
+      "type": "behavioral"
+    },
+    {
+      "id": "assert-2",
+      "text": "Executed Step 2: Analyzed design inputs (features, performance constraints, interface constraints, architecture constraints)",
+      "type": "behavioral"
+    },
+    {
+      "id": "assert-3",
+      "text": "Executed Step 3: Proposed at least 2 design solutions and provided recommendation",
+      "type": "behavioral"
+    },
+    {
+      "id": "assert-4",
+      "text": "Waited for user confirmation of the solution before continuing",
+      "type": "behavioral"
+    },
+    {
+      "id": "assert-5",
+      "text": "Did not skip solution comparison and directly write design.md",
+      "type": "negative"
+    }
+  ]
+}

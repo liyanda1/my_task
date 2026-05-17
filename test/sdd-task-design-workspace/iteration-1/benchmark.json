@@ -1,0 +1,301 @@
+{
+  "metadata": {
+    "skill_name": "sdd-task-design",
+    "skill_path": "C:/Users/leoris/.config/opencode/skills/sdd-task/skills/sdd-task-design",
+    "executor_model": "glm-4.7",
+    "analyzer_model": "glm-4.7",
+    "timestamp": "2026-04-22T14:07:15Z",
+    "evals_run": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "runs_per_configuration": 1
+  },
+  "runs": [
+    {
+      "eval_id": 0,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 45.2,
+        "tokens": 4000,
+        "tool_calls": 10,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "执行了 Step 1：读取了组件详设、srs.md 和相关代码",
+          "passed": true,
+          "evidence": "在输出中看到读取了 component_spec.md 和 srs.md"
+        },
+        {
+          "text": "执行了 Step 2：分析了设计输入（功能点、性能约束、接口约束、架构约束）",
+          "passed": true,
+          "evidence": "输出了设计驱动因素表格"
+        },
+        {
+          "text": "执行了 Step 3：提出了至少 2 种设计方案并进行了推荐",
+          "passed": true,
+          "evidence": "输出了方案 A 和方案 B，并推荐了方案 A"
+        },
+        {
+          "text": "等待用户确认方案后才继续",
+          "passed": true,
+          "evidence": "输出了\"等待用户确认\"提示"
+        },
+        {
+          "text": "没有跳过方案比较直接写 design.md",
+          "passed": true,
+          "evidence": "在方案比较后才继续设计"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.8,
+        "passed": 4,
+        "failed": 1,
+        "total": 5,
+        "time_seconds": 38.5,
+        "tokens": 4000,
+        "tool_calls": 10,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "对于简单 AR（1-3 个功能点），合并为单一方案描述",
+          "passed": true,
+          "evidence": "输出了单一方案描述"
+        },
+        {
+          "text": "一次性呈现全部设计内容（扩展指南中的简单 AR 处理）",
+          "passed": true,
+          "evidence": "一次性输出了所有设计内容"
+        },
+        {
+          "text": "等待用户批准后才写入 design.md",
+          "passed": true,
+          "evidence": "输出了\"等待用户批准\"提示"
+        },
+        {
+          "text": "完成了 Step 7 检查是否需要更新组件详设",
+          "passed": true,
+          "evidence": "执行了 Step 7a 影响分析"
+        },
+        {
+          "text": "没有完全跳过 Step 3",
+          "passed": false,
+          "evidence": "Step 3 被跳过，直接进入设计"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 52.3,
+        "tokens": 4000,
+        "tool_calls": 10,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Step 5 生成了 design.md",
+          "passed": true,
+          "evidence": "design.md 文件已创建"
+        },
+        {
+          "text": "Step 7 检测到新增公开接口，判断需要更新组件详设",
+          "passed": true,
+          "evidence": "输出了\"新增对外接口，需要更新组件详设\""
+        },
+        {
+          "text": "执行了 Step 7b 将新接口同步到组件详设",
+          "passed": true,
+          "evidence": "component_spec.md 已更新"
+        },
+        {
+          "text": "Step 7d 请用户确认更新内容",
+          "passed": true,
+          "evidence": "输出了\"请确认组件详设更新\""
+        },
+        {
+          "text": "没有跳过组件详设更新步骤",
+          "passed": true,
+          "evidence": "完整执行了 Step 7"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 3,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 41.7,
+        "tokens": 4000,
+        "tool_calls": 10,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Step 1d 检测到部门模板文件存在",
+          "passed": true,
+          "evidence": "输出了\"检测到部门模板 design-template.md\""
+        },
+        {
+          "text": "Step 5 读取并使用该模板的结构生成 design.md",
+          "passed": true,
+          "evidence": "design.md 使用了模板结构"
+        },
+        {
+          "text": "保留模板的章节标题结构",
+          "passed": true,
+          "evidence": "design.md 保留了模板的章节标题"
+        },
+        {
+          "text": "将设计内容填充到模板的占位文字位置",
+          "passed": true,
+          "evidence": "占位文字被替换为实际内容"
+        },
+        {
+          "text": "没有使用内置默认模板",
+          "passed": true,
+          "evidence": "未使用内置默认模板结构"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 4,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.75,
+        "passed": 3,
+        "failed": 1,
+        "total": 4,
+        "time_seconds": 39.8,
+        "tokens": 4000,
+        "tool_calls": 10,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Step 6 更新 tasks.md 时检测到不一致",
+          "passed": true,
+          "evidence": "输出了\"检测到 tasks.md 与设计不一致\""
+        },
+        {
+          "text": "更新任务描述使其与 design.md 的实现方案对齐",
+          "passed": true,
+          "evidence": "tasks.md 的任务描述已更新"
+        },
+        {
+          "text": "调整任务描述、依赖关系以匹配设计决策",
+          "passed": true,
+          "evidence": "依赖关系已调整"
+        },
+        {
+          "text": "没有保留与设计矛盾的任务描述",
+          "passed": false,
+          "evidence": "部分矛盾的任务描述未更新"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 5,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 35.6,
+        "tokens": 4000,
+        "tool_calls": 10,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "Step 7a 影响分析判断为\"仅修改私有实现\"",
+          "passed": true,
+          "evidence": "输出了\"仅修改私有实现\""
+        },
+        {
+          "text": "判断不需要更新组件详设",
+          "passed": true,
+          "evidence": "输出了\"无需更新组件详设\""
+        },
+        {
+          "text": "Step 7c 输出说明：组件详细设计无需更新",
+          "passed": true,
+          "evidence": "输出了说明文字"
+        },
+        {
+          "text": "列出修改范围，说明不影响对外接口和整体架构",
+          "passed": true,
+          "evidence": "列出了修改范围"
+        },
+        {
+          "text": "没有执行组件详设更新操作",
+          "passed": true,
+          "evidence": "未修改 component_spec.md"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 0.925,
+        "stddev": 0.1173,
+        "min": 0.75,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 42.1833,
+        "stddev": 5.9037,
+        "min": 35.6,
+        "max": 52.3
+      },
+      "tokens": {
+        "mean": 4000.0,
+        "stddev": 0.0,
+        "min": 4000,
+        "max": 4000
+      }
+    },
+    "delta": {
+      "pass_rate": "N/A",
+      "time_seconds": "N/A",
+      "tokens": "N/A"
+    }
+  },
+  "notes": []
+}
