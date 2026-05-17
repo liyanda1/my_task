@@ -241,16 +241,9 @@ specs/archive/ARxxx-topic/
 ### 7b. 执行归档
 
 ```bash
-# 在 specs/ 目录下
-# Windows PowerShell:
-Copy-Item -Recurse specs/changes/ARxxx-topic specs/archive/ARxxx-topic
-# 确认 archive 目录内容正确后，删除 changes 中的 AR 目录
-Remove-Item -Recurse specs/changes/ARxxx-topic
-```
-
-```bash
-# Linux/macOS:
+# 在组件工程根目录下执行（Linux/macOS）
 cp -r specs/changes/ARxxx-topic specs/archive/ARxxx-topic
+# 确认 archive 目录内容正确后，删除 changes 中的 AR 目录
 rm -rf specs/changes/ARxxx-topic
 ```
 
