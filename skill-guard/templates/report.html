@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skill Guard Report</title>
+<style>
+  :root {
+    --bg: #f5f5f5;
+    --card-bg: #ffffff;
+    --text: #1a1a2e;
+    --text-secondary: #6b7280;
+    --text-muted: #9ca3af;
+    --border: #e5e7eb;
+    --header-bg: #0f172a;
+    --header-text: #f8fafc;
+    --green: #16a34a;
+    --green-bg: #dcfce7;
+    --green-border: #86efac;
+    --red: #dc2626;
+    --red-bg: #fef2f2;
+    --red-border: #fca5a5;
+    --amber: #d97706;
+    --amber-bg: #fffbeb;
+    --amber-border: #fcd34d;
+    --blue: #2563eb;
+    --blue-bg: #eff6ff;
+    --blue-border: #93c5fd;
+    --purple: #7c3aed;
+    --purple-bg: #f5f3ff;
+    --purple-border: #c4b5fd;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ============ HEADER ============ */
+  .header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: var(--header-text);
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .header-left h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+  .header-left h1 .skill-name {
+    color: #38bdf8;
+  }
+  .header-left .meta {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-top: 0.25rem;
+  }
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1.25rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+  }
+  .status-badge.pass {
+    background: rgba(22, 163, 74, 0.2);
+    color: #4ade80;
+    border: 1px solid rgba(22, 163, 74, 0.4);
+  }
+  .status-badge.warn {
+    background: rgba(217, 119, 6, 0.2);
+    color: #fbbf24;
+    border: 1px solid rgba(217, 119, 6, 0.4);
+  }
+  .status-badge.fail {
+    background: rgba(220, 38, 38, 0.2);
+    color: #f87171;
+    border: 1px solid rgba(220, 38, 38, 0.4);
+  }
+
+  /* ============ MAIN ============ */
+  .main {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  /* ============ SUMMARY CARDS ============ */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  .summary-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+    border-left: 4px solid var(--blue);
+  }
+  .summary-card.pass-rate-card { border-left-color: var(--green); }
+  .summary-card .card-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+  .card-value {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .card-value .number {
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1;
+  }
+  .card-value .unit {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .card-delta {
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+  }
+  .card-delta.regression {
+    background: var(--red-bg);
+    color: var(--red);
+  }
+  .card-delta.improvement {
+    background: var(--green-bg);
+    color: var(--green);
+  }
+  .card-delta.neutral {
+    background: #f3f4f6;
+    color: var(--text-secondary);
+  }
+  .card-comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+  .card-comparison .base, .card-comparison .curr {
+    display: flex;
+    flex-direction: column;
+  }
+  .card-comparison .label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+  .card-comparison .val {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  /* ============ OVERVIEW SECTION ============ */
+  .overview-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+  }
+  .overview-card h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+  .overview-item {
+    text-align: center;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: var(--radius-sm);
+  }
+  .overview-item .number {
+    font-size: 1.75rem;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+  .overview-item .label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+  }
+  .overview-item.regression-item { background: var(--red-bg); }
+  .overview-item.regression-item .number { color: var(--red); }
+
+  /* ============ EVAL DETAILS ============ */
+  .eval-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .eval-card.regression { border: 2px solid var(--red-border); }
+  .eval-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    background: #f8fafc;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+  }
+  .eval-header:hover { background: #f1f5f9; }
+  .eval-header .eval-title {
+    font-weight: 700;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+  }
+  .eval-header .eval-id {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: var(--header-bg);
+    color: var(--header-text);
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .eval-header .eval-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .eval-meta {
+    padding: 0.75rem 1.5rem;
+    background: #fafafa;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.8rem;
+  }
+  .eval-meta .prompt-text {
+    color: var(--text-secondary);
+    font-style: italic;
+    line-height: 1.5;
+  }
+  .eval-meta .prompt-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 0.25rem;
+  }
+  .eval-outputs-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.75rem 1.25rem;
+    background: #f8fafc;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    user-select: none;
+  }
+  .eval-outputs-toggle:hover { background: #f1f5f9; }
+  .eval-outputs-toggle .arrow { transition: transform 0.15s; }
+  .eval-outputs-toggle .arrow.open { transform: rotate(90deg); }
+  .eval-outputs-body {
+    display: none;
+    padding: 1rem 1.25rem;
+  }
+  .eval-outputs-body.open { display: block; }
+  .output-file {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-bottom: 0.75rem;
+  }
+  .output-file:last-child { margin-bottom: 0; }
+  .output-file-header {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: #f8fafc;
+    border-bottom: 1px solid var(--border);
+    font-family: 'SF Mono', SFMono-Regular, Consolas, monospace;
+  }
+  .output-file-content {
+    padding: 0.75rem;
+    overflow-x: auto;
+    max-height: 420px;
+    overflow-y: auto;
+  }
+  .output-file-content pre {
+    font-size: 0.78rem;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: 'SF Mono', SFMono-Regular, Consolas, monospace;
+    margin: 0;
+  }
+  .output-file-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+  .output-file-content iframe {
+    width: 100%;
+    height: 500px;
+    border: none;
+    border-radius: 4px;
+  }
+  .output-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    background: #f8fafc;
+  }
+  .output-tab {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: var(--text-muted);
+    border-bottom: 2px solid transparent;
+  }
+  .output-tab.active {
+    color: var(--blue);
+    border-bottom-color: var(--blue);
+  }
+  .output-panel { display: none; }
+  .output-panel.active { display: block; }
+
+  .eval-body {
+    padding: 1.25rem 1.5rem;
+  }
+
+  /* ============ METRICS BAR ============ */
+  .metrics-bar {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .metric-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .metric-item .metric-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+  .metric-item .metric-value {
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .metric-item .metric-delta {
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+  .metric-delta.worse { color: var(--red); }
+  .metric-delta.better { color: var(--green); }
+  .metric-delta.same { color: var(--text-muted); }
+
+  /* ============ ASSERTION TABLE ============ */
+  .assertion-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+  .assertion-table thead th {
+    text-align: left;
+    padding: 0.65rem 0.75rem;
+    background: #f8fafc;
+    border-bottom: 2px solid var(--border);
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-secondary);
+  }
+  .assertion-table thead th.col-current,
+  .assertion-table thead th.col-baseline {
+    text-align: center;
+    width: 72px;
+  }
+  .assertion-table thead th.col-current { color: var(--blue); }
+  .assertion-table thead th.col-baseline { color: var(--text-muted); }
+  .assertion-table tbody td {
+    padding: 0.65rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .assertion-table tbody tr:hover { background: #fafafa; }
+  .assertion-table tbody tr.regression-row { background: var(--red-bg); }
+  .assertion-table tbody tr.regression-row:hover { background: #fee2e2; }
+
+  .assertion-text {
+    line-height: 1.4;
+    font-weight: 500;
+  }
+  .assertion-evidence {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 0.15rem;
+    line-height: 1.3;
+    max-width: 480px;
+    word-break: break-word;
+  }
+
+  .result-cell {
+    text-align: center;
+  }
+  .result-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+  .result-badge.pass {
+    background: var(--green-bg);
+    color: var(--green);
+  }
+  .result-badge.fail {
+    background: var(--red-bg);
+    color: var(--red);
+  }
+
+  /* ============ COMPARISON CARDS (side by side) ============ */
+  .comparison-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .comp-col {
+    background: #f8fafc;
+    border-radius: var(--radius-sm);
+    padding: 1rem;
+    border: 1px solid var(--border);
+  }
+  .comp-col.current-col { border-left: 3px solid var(--blue); }
+  .comp-col.baseline-col { border-left: 3px solid #94a3b8; }
+  .comp-col .comp-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .comp-col.current-col .comp-label { color: var(--blue); }
+  .comp-col.baseline-col .comp-label { color: #64748b; }
+  .comp-mini-stats {
+    display: flex;
+    gap: 1.25rem;
+    font-size: 0.8rem;
+  }
+  .comp-mini-stat .stat-label {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+  .comp-mini-stat .stat-value {
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  /* ============ PASS RATE BAR ============ */
+  .pass-rate-bar {
+    height: 10px;
+    background: #e5e7eb;
+    border-radius: 9999px;
+    overflow: hidden;
+    margin-top: 0.5rem;
+    display: flex;
+  }
+  .pass-rate-bar .pass-segment {
+    background: var(--green);
+    transition: width 0.3s ease;
+  }
+  .pass-rate-bar .fail-segment {
+    background: var(--red);
+    transition: width 0.3s ease;
+  }
+
+  /* ============ NOTES ============ */
+  .notes-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+  }
+  .notes-card h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .note-item {
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  .note-item.regression-note {
+    background: var(--red-bg);
+    color: var(--red);
+    font-weight: 600;
+  }
+  .note-item.info-note {
+    background: var(--blue-bg);
+    color: #1e40af;
+  }
+
+  /* ============ FOOTER ============ */
+  .footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  /* ============ COLLAPSIBLE ============ */
+  .collapse-icon {
+    transition: transform 0.2s ease;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+  }
+  .eval-card.collapsed .eval-body,
+  .eval-card.collapsed .eval-meta { display: none; }
+  .eval-card.collapsed .collapse-icon { transform: rotate(-90deg); }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 768px) {
+    .main { padding: 1rem; gap: 1rem; }
+    .comparison-section { grid-template-columns: 1fr; }
+    .header { flex-direction: column; align-items: flex-start; }
+    .summary-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>Skill Guard Report: <span class="skill-name" id="skillName">--</span></h1>
+    <div class="meta" id="reportMeta">--</div>
+  </div>
+  <div class="header-right">
+    <span class="status-badge" id="overallStatus">--</span>
+  </div>
+</div>
+
+<div class="main">
+  <!-- Summary Dashboard -->
+  <section class="summary-grid">
+    <div class="summary-card pass-rate-card">
+      <div class="card-label">Pass Rate</div>
+      <div class="card-value">
+        <span class="number" id="mainPassRate">--</span>
+        <span class="unit">%</span>
+      </div>
+      <span class="card-delta" id="passRateDelta">--</span>
+      <div class="card-comparison">
+        <div class="curr"><span class="label">Current</span><span class="val" id="currPassRate">--</span></div>
+        <div class="base"><span class="label">Baseline</span><span class="val" id="basePassRate">--</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Overview -->
+  <section class="overview-card" id="overviewCard">
+    <h2>Overview</h2>
+    <div class="overview-grid" id="overviewGrid"></div>
+  </section>
+
+  <!-- Eval Details -->
+  <section id="evalDetails"></section>
+
+  <!-- Notes -->
+  <section class="notes-card" id="notesCard">
+    <h2>Notes</h2>
+    <div id="notesContent"></div>
+  </section>
+
+  <div class="footer">Generated by Skill Guard</div>
+</div>
+
+<script id="benchmark-data" type="application/json">
+__BENCHMARK_DATA__
+</script>
+
+<script>
+(function() {
+  const dataEl = document.getElementById('benchmark-data');
+  if (!dataEl || !dataEl.textContent.trim()) {
+    document.getElementById('skillName').textContent = 'No data';
+    document.getElementById('reportMeta').textContent = 'benchmark.json not found';
+    return;
+  }
+
+  let bm;
+  try {
+    bm = JSON.parse(dataEl.textContent.trim());
+  } catch (e) {
+    document.getElementById('skillName').textContent = 'Parse error';
+    document.getElementById('reportMeta').textContent = e.message;
+    return;
+  }
+
+  const meta = bm.metadata || {};
+  const runs = bm.runs || [];
+  const summary = bm.run_summary || {};
+  const notes = bm.notes || [];
+
+  // ---------- header ----------
+  document.getElementById('skillName').textContent = meta.skill_name || 'Unknown';
+  document.getElementById('reportMeta').textContent =
+    (meta.timestamp || '') + '  |  ' + (meta.evals_run || []).length + ' evals, ' +
+    (meta.runs_per_configuration || 1) + ' runs/config';
+
+  // ---------- configs ----------
+  const configs = Object.keys(summary).filter(k => k !== 'delta');
+  const currentCfg = configs.find(c => c === 'current') || configs[0] || 'current';
+  const baselineCfg = configs.find(c => c === 'baseline') || configs[1] || 'baseline';
+
+  const currStats = summary[currentCfg] || {};
+  const baseStats = summary[baselineCfg] || {};
+  const delta = summary.delta || {};
+
+  // ---------- summary cards ----------
+  function fmtPct(v) { return v != null ? (v * 100).toFixed(1) : '--'; }
+
+  const currPR = currStats.pass_rate?.mean;
+  const basePR = baseStats.pass_rate?.mean;
+  const dPR = delta.pass_rate ? parseFloat(delta.pass_rate) : (currPR != null && basePR != null ? currPR - basePR : null);
+
+  document.getElementById('mainPassRate').textContent = fmtPct(currPR);
+  document.getElementById('currPassRate').textContent = fmtPct(currPR) + '%';
+  document.getElementById('basePassRate').textContent = fmtPct(basePR) + '%';
+
+  function deltaEl(id, val, suffix, isPercent) {
+    const el = document.getElementById(id);
+    if (val == null) { el.textContent = '--'; el.className = 'card-delta neutral'; return; }
+    const sign = val >= 0 ? '+' : '';
+    const label = sign + (isPercent ? (val * 100).toFixed(1) : val.toFixed(1)) + (suffix || '');
+    el.textContent = label;
+    if (isPercent && val < -0.01) el.className = 'card-delta regression';
+    else if (isPercent && val > 0.01) el.className = 'card-delta improvement';
+    else el.className = 'card-delta neutral';
+  }
+
+  deltaEl('passRateDelta', dPR, 'pp', true);
+
+  // ---------- overview ----------
+  const evalIds = meta.evals_run || [...new Set(runs.map(r => r.eval_id))];
+  const totalEvals = evalIds.length;
+  let degradedCount = 0;
+  let improvedCount = 0;
+  let stableCount = 0;
+  const degradationMap = new Map();
+
+  for (const eid of evalIds) {
+    const currRuns = runs.filter(r => r.eval_id === eid && r.configuration === currentCfg);
+    const baseRuns = runs.filter(r => r.eval_id === eid && r.configuration === baselineCfg);
+    const cPR = currRuns.length > 0 ? currRuns[0].result.pass_rate : null;
+    const bPR = baseRuns.length > 0 ? baseRuns[0].result.pass_rate : null;
+    let isDegraded = false;
+    let isImproved = false;
+    if (cPR != null && bPR != null) {
+      if (cPR < bPR - 0.01) { degradedCount++; isDegraded = true; }
+      else if (cPR > bPR + 0.01) { improvedCount++; isImproved = true; }
+      else { stableCount++; }
+    } else { stableCount++; }
+    degradationMap.set(eid, isDegraded);
+  }
+
+  const overviewGrid = document.getElementById('overviewGrid');
+  overviewGrid.innerHTML = [
+    { n: totalEvals, l: 'Total Evals' },
+    { n: stableCount + improvedCount, l: 'Passed' },
+    { n: improvedCount, l: 'Improved', cls: '' },
+    { n: degradedCount, l: 'Regressions', cls: 'regression-item' },
+  ].map(d =>
+    '<div class="overview-item' + (d.cls ? ' ' + d.cls : '') + '">' +
+    '<div class="number">' + d.n + '</div><div class="label">' + d.l + '</div></div>'
+  ).join('');
+
+  // ---------- overall status ----------
+  const statusEl = document.getElementById('overallStatus');
+  if (degradedCount > 0) {
+    statusEl.textContent = '\u26A0 REGRESSION';
+    statusEl.className = 'status-badge fail';
+  } else if (improvedCount > 0) {
+    statusEl.textContent = '\u2713 IMPROVED';
+    statusEl.className = 'status-badge pass';
+  } else {
+    statusEl.textContent = '\u2713 PASS';
+    statusEl.className = 'status-badge pass';
+  }
+
+  // ---------- eval details ----------
+  let evalHtml = '';
+  for (const eid of evalIds) {
+    const currRuns = runs.filter(r => r.eval_id === eid && r.configuration === currentCfg);
+    const baseRuns = runs.filter(r => r.eval_id === eid && r.configuration === baselineCfg);
+    const cRun = currRuns[0] || {};
+    const bRun = baseRuns[0] || {};
+
+    const cResult = cRun.result || {};
+    const bResult = bRun.result || {};
+    const cExps = cRun.expectations || [];
+    const bExps = bRun.expectations || [];
+    const isDegraded = degradationMap.get(eid) || false;
+
+    const evalName = cRun.eval_name || bRun.eval_name || ('Eval #' + eid);
+    const prompt = cRun.prompt || bRun.prompt || '';
+    const expectedOutput = cRun.expected_output || bRun.expected_output || '';
+
+    // pass rate bar
+    const cPass = cResult.passed || 0;
+    const cTotal = cResult.total || 0;
+    const cPct = cTotal > 0 ? (cPass / cTotal * 100) : 0;
+    const bPass = bResult.passed || 0;
+    const bTotal = bResult.total || 0;
+    const bPct = bTotal > 0 ? (bPass / bTotal * 100) : 0;
+
+    // merge expectations by text for comparison
+    const expMap = new Map();
+    for (const exp of cExps) expMap.set(exp.text, { text: exp.text, currPassed: exp.passed, currEvidence: exp.evidence || '', basePassed: null, baseEvidence: '' });
+    for (const exp of bExps) {
+      const existing = expMap.get(exp.text);
+      if (existing) { existing.basePassed = exp.passed; existing.baseEvidence = exp.evidence || ''; }
+      else expMap.set(exp.text, { text: exp.text, currPassed: null, currEvidence: '', basePassed: exp.passed, baseEvidence: exp.evidence || '' });
+    }
+    const allExps = [...expMap.values()];
+
+    // assertion rows
+    let expRows = '';
+    for (const exp of allExps) {
+      const cP = exp.currPassed;
+      const bP = exp.basePassed;
+      const isRegRow = (cP === false && bP === true);
+      expRows += '<tr' + (isRegRow ? ' class="regression-row"' : '') + '>' +
+        '<td><div class="assertion-text">' + esc(exp.text) + '</div>' +
+        '<div class="assertion-evidence">' +
+        (exp.currEvidence ? '<span style="color:#2563eb">C:</span> ' + esc(exp.currEvidence) : '') +
+        (exp.currEvidence && exp.baseEvidence ? ' | ' : '') +
+        (exp.baseEvidence ? '<span style="color:#94a3b8">B:</span> ' + esc(exp.baseEvidence) : '') +
+        '</div></td>' +
+        '<td class="result-cell"><span class="result-badge ' + (cP ? 'pass' : 'fail') + '">' + (cP ? '\u2713' : '\u2717') + '</span></td>' +
+        '<td class="result-cell"><span class="result-badge ' + (bP ? 'pass' : 'fail') + '">' + (bP ? '\u2713' : '\u2717') + '</span></td>' +
+        '</tr>';
+    }
+
+    evalHtml += '<div class="eval-card' + (isDegraded ? ' regression' : '') + '" onclick="this.classList.toggle(\'collapsed\')">' +
+      '<div class="eval-header">' +
+        '<span class="eval-title"><span class="eval-id">' + eid + '</span>' + esc(evalName) + '</span>' +
+        '<span class="eval-status">' +
+          (isDegraded ? '<span style="color:#dc2626">\u26A0 Degraded</span>' : '<span style="color:#16a34a">\u2713 Stable</span>') +
+          ' <span class="collapse-icon">\u25BC</span>' +
+        '</span>' +
+      '</div>' +
+      (prompt ? '<div class="eval-meta"><div class="prompt-label">Prompt</div><div class="prompt-text">' + esc(prompt) + '</div></div>' : '') +
+      (expectedOutput ? '<div class="eval-meta"><div class="prompt-label">Expected</div><div class="prompt-text">' + esc(expectedOutput) + '</div></div>' : '') +
+
+      // ---------- Outputs 对比区 ----------
+      (function() {
+        const cOuts = cRun.outputs || [];
+        const bOuts = bRun.outputs || [];
+        if (cOuts.length === 0 && bOuts.length === 0) return '';
+        let html = '<div class="eval-outputs-toggle" onclick="toggleOutputs(' + eid + ', this)">' +
+          '<span class="arrow" id="outputs-arrow-' + eid + '">&#9654;</span> ' +
+          'Outputs <span style="font-weight:400; color:var(--text-muted)">(' + (cOuts.length + bOuts.length) + ' files)</span></div>' +
+          '<div class="eval-outputs-body" id="outputs-body-' + eid + '">';
+
+        // Current outputs
+        if (cOuts.length > 0) {
+          html += '<div style="margin-bottom:0.75rem"><div style="font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;color:var(--blue);margin-bottom:0.4rem;">Current</div>';
+          for (const f of cOuts) {
+            html += renderOutputFile(f);
+          }
+          html += '</div>';
+        }
+        // Baseline outputs
+        if (bOuts.length > 0) {
+          html += '<div><div style="font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;color:var(--text-muted);margin-bottom:0.4rem;">Baseline</div>';
+          for (const f of bOuts) {
+            html += renderOutputFile(f);
+          }
+          html += '</div>';
+        }
+
+        html += '</div>';
+        return html;
+      })() +
+
+      '<div class="eval-body">' +
+        '<div class="comparison-section">' +
+          '<div class="comp-col current-col">' +
+            '<div class="comp-label">Current</div>' +
+            '<div class="comp-mini-stats">' +
+              '<div class="comp-mini-stat"><div class="stat-label">Pass</div><div class="stat-value" style="color:#16a34a">' + cPass + '/' + cTotal + '</div></div>' +
+            '</div>' +
+            '<div class="pass-rate-bar"><div class="pass-segment" style="width:' + cPct + '%"></div><div class="fail-segment" style="width:' + (100 - cPct) + '%"></div></div>' +
+          '</div>' +
+          '<div class="comp-col baseline-col">' +
+            '<div class="comp-label">Baseline</div>' +
+            '<div class="comp-mini-stats">' +
+              '<div class="comp-mini-stat"><div class="stat-label">Pass</div><div class="stat-value" style="color:#16a34a">' + bPass + '/' + bTotal + '</div></div>' +
+            '</div>' +
+            '<div class="pass-rate-bar"><div class="pass-segment" style="width:' + bPct + '%"></div><div class="fail-segment" style="width:' + (100 - bPct) + '%"></div></div>' +
+          '</div>' +
+        '</div>' +
+        '<table class="assertion-table">' +
+          '<thead><tr>' +
+            '<th>Assertion</th>' +
+            '<th class="col-current">Current</th>' +
+            '<th class="col-baseline">Baseline</th>' +
+          '</tr></thead>' +
+          '<tbody>' + expRows + '</tbody>' +
+        '</table>' +
+      '</div>' +
+    '</div>';
+  }
+
+  document.getElementById('evalDetails').innerHTML = evalHtml;
+
+  // ---------- notes ----------
+  if (notes.length > 0) {
+    document.getElementById('notesContent').innerHTML = notes.map(n => {
+      const isReg = /regression|退化|下降/i.test(n);
+      return '<div class="note-item ' + (isReg ? 'regression-note' : 'info-note') + '">' + esc(n) + '</div>';
+    }).join('');
+  } else {
+    document.getElementById('notesContent').innerHTML = '<div class="note-item info-note">No issues detected.</div>';
+  }
+
+  function esc(s) {
+    if (!s) return '';
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function toggleOutputs(eid, el) {
+    const body = document.getElementById('outputs-body-' + eid);
+    const arrow = document.getElementById('outputs-arrow-' + eid);
+    if (body.classList.contains('open')) {
+      body.classList.remove('open');
+      arrow.classList.remove('open');
+    } else {
+      body.classList.add('open');
+      arrow.classList.add('open');
+    }
+  }
+
+  function renderOutputFile(f) {
+    let html = '<div class="output-file">';
+    html += '<div class="output-file-header">' + esc(f.name) + '</div>';
+    html += '<div class="output-file-content">';
+    if (f.type === 'text' && f.content) {
+      html += '<pre>' + esc(f.content) + '</pre>';
+    } else if ((f.type === 'image' || f.type === 'pdf') && f.data_uri) {
+      if (f.type === 'image') {
+        html += '<img src="' + esc(f.data_uri) + '" alt="' + esc(f.name) + '">';
+      } else {
+        html += '<iframe src="' + esc(f.data_uri) + '"></iframe>';
+      }
+    } else {
+      html += '<div style="color:var(--text-muted);font-style:italic;">Binary file: ' + esc(f.name) + ' (download not available in static report)</div>';
+    }
+    html += '</div></div>';
+    return html;
+  }
+})();
+</script>
+
+</body>
+</html>

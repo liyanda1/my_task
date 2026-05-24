@@ -1,0 +1,55 @@
+{
+  "_comment": "将此文件复制到目标 skill 的 evals/ 目录下，修改 skill_name 和 evals 内容。skill-guard 是通用框架，不绑定任何特定 skill。",
+  "skill_name": "<your-skill-name>",
+  "evals": [
+    {
+      "id": 1,
+      "name": "示例：Red stage - write tests",
+      "prompt": "请为登录功能写测试用例（TDD Red阶段）。需要包含：用户名密码验证、登录成功跳转、登录失败提示。",
+      "expected_output": "生成测试文件，包含 Red 阶段标识，覆盖登录的3个核心场景",
+      "files": [],
+      "expectations": [
+        "输出中包含 RED 或 Red 或 红 阶段标识",
+        "生成了测试文件（包含 .ts 或 .py 或 .test 扩展名）",
+        "测试覆盖了至少3个测试场景",
+        "工具调用次数 ≤ 10（无死循环）"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Green stage - implement code",
+      "prompt": "根据上面的测试实现登录功能（TDD Green阶段），确保所有测试通过。",
+      "expected_output": "实现代码使所有测试通过",
+      "files": [],
+      "expectations": [
+        "输出中包含 GREEN 或 Green 或 绿 阶段标识",
+        "生成了实现代码文件",
+        "工具调用次数 ≤ 12（无死循环）"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Auto confirm mode",
+      "prompt": "使用全自动确认模式运行TDD流程：用户登录功能。",
+      "expected_output": "自动完成 Red → Green 完整流程，无需用户干预",
+      "files": [],
+      "expectations": [
+        "无需用户确认即可完成全部流程",
+        "输出中同时包含 RED 和 GREEN 阶段标记",
+        "无错误或异常输出"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Per-task confirm mode",
+      "prompt": "使用按 task 确认模式运行 TDD 流程：用户登录功能。",
+      "expected_output": "每个阶段完成后询问用户确认再继续",
+      "files": [],
+      "expectations": [
+        "输出中有询问用户确认的提示",
+        "包含了阶段性完成标记",
+        "工具调用次数 ≤ 15"
+      ]
+    }
+  ]
+}
